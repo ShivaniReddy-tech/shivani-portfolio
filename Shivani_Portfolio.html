@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shivani Arudappa Gari — UI Full Stack Web Developer</title>
+<style>
+  :root{
+    --bg: #0F211D;
+    --surface: #16302A;
+    --surface-2: #1D3D34;
+    --ink: #EDEAE0;
+    --ink-dim: #9FB0A8;
+    --gold: #C9A227;
+    --teal: #4FD1B0;
+    --line: rgba(237,234,224,0.12);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  a{color:var(--teal); text-decoration:none;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(15,33,29,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  .brand{font-family:Georgia,serif; font-size:1.05rem; letter-spacing:0.02em;}
+  .brand strong{color:var(--gold);}
+  nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0;}
+  nav a{color:var(--ink-dim); font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase;}
+  nav a:hover{color:var(--gold);}
+
+  /* HERO */
+  header.hero{padding:120px 0 90px; position:relative; overflow:hidden;}
+  .eyebrow{
+    color:var(--gold); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{content:""; width:34px; height:1px; background:var(--gold); display:inline-block;}
+  h1.hero-title{font-size:clamp(2.4rem, 5vw, 3.6rem); color:var(--ink); max-width:820px;}
+  h1.hero-title em{font-style:normal; color:var(--teal);}
+  .hero-sub{max-width:620px; color:var(--ink-dim); font-size:1.05rem; margin-top:22px;}
+  .hero-actions{display:flex; gap:16px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    padding:12px 26px; border-radius:var(--radius); font-size:0.85rem; letter-spacing:0.04em;
+    border:1px solid var(--gold); color:var(--gold); transition:all .2s ease;
+  }
+  .btn.solid{background:var(--gold); color:var(--bg); border-color:var(--gold);}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.solid:hover{background:#dbb433;}
+
+  /* component-registry strip — the signature element */
+  .registry{
+    margin-top:64px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--surface); overflow:hidden;
+  }
+  .registry-head{
+    display:flex; align-items:center; gap:10px; padding:12px 18px;
+    border-bottom:1px solid var(--line); font-size:0.75rem; color:var(--ink-dim);
+    letter-spacing:0.08em; text-transform:uppercase;
+  }
+  .dot{width:8px; height:8px; border-radius:50%;}
+  .dot.a{background:#e0755a;} .dot.b{background:var(--gold);} .dot.c{background:var(--teal);}
+  .registry-body{
+    padding:18px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size:0.82rem; color:var(--ink-dim); overflow-x:auto; white-space:pre;
+  }
+  .registry-body .k{color:var(--teal);}
+  .registry-body .s{color:var(--gold);}
+
+  /* SECTIONS */
+  section{padding:80px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-label{
+    color:var(--gold); font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:14px;
+  }
+  h2.section-title{font-size:clamp(1.6rem,3vw,2.1rem); margin-bottom:30px;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px;}
+  @media(max-width:800px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid p{color:var(--ink-dim);}
+  .stack-list{list-style:none; margin:0; padding:0; display:grid; gap:10px;}
+  .stack-list li{
+    display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line);
+    font-size:0.9rem;
+  }
+  .stack-list span:first-child{color:var(--ink);}
+  .stack-list span:last-child{color:var(--ink-dim); text-align:right;}
+
+  /* PROJECTS */
+  .projects{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:900px){.projects{grid-template-columns:1fr;}}
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; position:relative; transition:border-color .25s ease, transform .25s ease;
+  }
+  .card:hover{border-color:var(--gold); transform:translateY(-4px);}
+  .card .tag{
+    display:inline-block; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--teal); border:1px solid var(--teal); border-radius:20px; padding:3px 10px; margin-bottom:16px;
+  }
+  .card h3{font-size:1.15rem; margin-bottom:10px;}
+  .card p{color:var(--ink-dim); font-size:0.9rem; margin:0 0 14px;}
+  .card ul{margin:0; padding-left:18px; color:var(--ink-dim); font-size:0.85rem;}
+  .card ul li{margin-bottom:6px;}
+  .card .stack{margin-top:16px; font-size:0.75rem; color:var(--ink-dim); border-top:1px solid var(--line); padding-top:12px;}
+
+  /* AI SECTION */
+  .ai-box{
+    background:var(--surface-2); border-left:3px solid var(--teal); border-radius:var(--radius);
+    padding:28px 30px;
+  }
+  .ai-box p{color:var(--ink-dim); margin:0 0 14px;}
+  .ai-box ul{margin:0; padding-left:20px; color:var(--ink-dim);}
+  .ai-box ul li{margin-bottom:8px;}
+
+  /* EXPERIENCE */
+  .timeline{position:relative; padding-left:26px; border-left:1px solid var(--line);}
+  .tl-item{margin-bottom:34px; position:relative;}
+  .tl-item::before{
+    content:""; position:absolute; left:-31px; top:6px; width:9px; height:9px;
+    border-radius:50%; background:var(--gold);
+  }
+  .tl-item h3{font-size:1.05rem;}
+  .tl-item .meta{color:var(--ink-dim); font-size:0.82rem; margin:4px 0 10px;}
+  .tl-item ul{margin:0; padding-left:20px; color:var(--ink-dim); font-size:0.9rem;}
+  .tl-item ul li{margin-bottom:6px;}
+
+  /* CONTACT */
+  footer{padding:70px 0 50px; text-align:center;}
+  footer h2{font-size:clamp(1.6rem,3vw,2.2rem); margin-bottom:16px;}
+  footer p{color:var(--ink-dim); margin-bottom:30px;}
+  .contact-links{display:flex; justify-content:center; gap:26px; flex-wrap:wrap; margin-bottom:40px;}
+  .contact-links a{color:var(--ink); font-size:0.9rem; border-bottom:1px solid var(--line); padding-bottom:2px;}
+  .contact-links a:hover{color:var(--gold); border-color:var(--gold);}
+  .fine{color:var(--ink-dim); font-size:0.78rem;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><strong>SAG</strong> / Shivani Arudappa Gari</div>
+    <ul>
+      <li><a href="/about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#ai">AI &amp; Learning</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">UI Full Stack Web Developer</div>
+    <h1 class="hero-title">I build reusable interfaces that <em>hold up</em> in production.</h1>
+    <p class="hero-sub">React.js developer with 1+ year shipping responsive, cross-device UI for healthcare and travel-booking platforms — with reusable component libraries as my throughline, and applied AI-assisted development as my current focus.</p>
+    <div class="hero-actions">
+      <a class="btn solid" href="#projects">View projects</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+
+    <div class="registry">
+      <div class="registry-head">
+        <span class="dot a"></span><span class="dot b"></span><span class="dot c"></span>
+        component-registry.json
+      </div>
+      <div class="registry-body">{
+  <span class="k">"published"</span>: [
+    { <span class="k">"name"</span>: <span class="s">"Hinkapin UI Kit"</span>, <span class="k">"domain"</span>: <span class="s">"healthcare"</span> },
+    { <span class="k">"name"</span>: <span class="s">"QuicBus Booking Flow"</span>, <span class="k">"domain"</span>: <span class="s">"travel"</span> },
+    { <span class="k">"name"</span>: <span class="s">"PaxEM Hospital Console"</span>, <span class="k">"domain"</span>: <span class="s">"healthcare"</span> }
+  ],
+  <span class="k">"currently_learning"</span>: [<span class="s">"LLMs"</span>, <span class="s">"prompt engineering"</span>, <span class="s">"RAG"</span>, <span class="s">"MCP"</span>]
+}</div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="section-label">About</div>
+      <h2 class="section-title">Frontend-first, full stack curious.</h2>
+      <p>I'm a UI Full Stack Web Developer based in Kurnool, Andhra Pradesh, currently working as a Software Engineer I at Zyptr.ai. Most of my work centers on turning product requirements into responsive, dependable interfaces — and on building the reusable component layers that let a team move faster once those interfaces exist.</p>
+      <p>Alongside my day-to-day frontend work, I'm building applied knowledge of AI-assisted development: using tools like Claude and ChatGPT in my own workflow, and studying how LLMs, RAG, and AI agents fit into modern software engineering — without overstating it as professional experience I don't yet have.</p>
+    </div>
+    <div>
+      <div class="section-label">Core Stack</div>
+      <ul class="stack-list">
+        <li><span>React.js / Next.js</span><span>Frontend</span></li>
+        <li><span>JavaScript (ES6+) / TypeScript</span><span>Language</span></li>
+        <li><span>SCSS, Material-UI, Bootstrap</span><span>Styling</span></li>
+        <li><span>Node.js, REST APIs</span><span>Backend</span></li>
+        <li><span>PostgreSQL, MongoDB</span><span>Data</span></li>
+        <li><span>Git &amp; GitHub</span><span>Tooling</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects">
+
+      <div class="card">
+        <span class="tag">Healthcare</span>
+        <h3>Hinkapin</h3>
+        <p>Healthcare information platform covering hospitals, ASCs, and doctors across three US states.</p>
+        <ul>
+          <li>Built responsive components across mobile, tablet, desktop</li>
+          <li>Structured provider data for FL, SC, OR</li>
+          <li>Focused on clarity for non-technical users</li>
+        </ul>
+        <div class="stack">React.js · HTML · CSS · JavaScript</div>
+      </div>
+
+      <div class="card">
+        <span class="tag">Travel</span>
+        <h3>QuicBus</h3>
+        <p>Online bus booking platform in the style of RedBus, covering listings through checkout.</p>
+        <ul>
+          <li>Designed listing &amp; booking-flow screens</li>
+          <li>Reusable React components for booking UX</li>
+          <li>Fully responsive across devices</li>
+        </ul>
+        <div class="stack">React.js · HTML · CSS · JavaScript</div>
+      </div>
+
+      <div class="card">
+        <span class="tag">Healthcare</span>
+        <h3>PaxEM Health</h3>
+        <p>Hospital management information platform for internal clinical and admin workflows.</p>
+        <ul>
+          <li>Built UI components for management console</li>
+          <li>Integrated frontend with backend REST APIs</li>
+          <li>Prioritized consistency across modules</li>
+        </ul>
+        <div class="stack">React.js · JavaScript · HTML · CSS</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="ai">
+  <div class="wrap">
+    <div class="section-label">Growth Area</div>
+    <h2 class="section-title">AI &amp; Emerging Technologies</h2>
+    <div class="ai-box">
+      <p>I'm deliberately building this in the open, at the stage I'm actually at — learning, not claiming years of AI engineering experience I don't have yet.</p>
+      <ul>
+        <li>Currently learning Large Language Models (LLMs) and Prompt Engineering</li>
+        <li>Exploring OpenAI and Anthropic Claude APIs</li>
+        <li>Using AI-assisted development tools (ChatGPT, Claude) to improve coding productivity, debugging, documentation, and workflow</li>
+        <li>Building knowledge of Retrieval-Augmented Generation (RAG), AI Agents, and Model Context Protocol (MCP) concepts</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-label">Track Record</div>
+    <h2 class="section-title">Experience &amp; Education</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <h3>Software Engineer I — Zyptr.ai</h3>
+        <div class="meta">2025 – 2026</div>
+        <ul>
+          <li>Engineered responsive, cross-device interfaces with React.js &amp; JavaScript</li>
+          <li>Built reusable UI component libraries adopted across product modules</li>
+          <li>Resolved UI performance bottlenecks, improving responsiveness</li>
+          <li>Partnered with designers &amp; backend engineers on production interfaces</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <h3>B.Tech, Civil Engineering — G. Pullaiah College of Engineering &amp; Technology</h3>
+        <div class="meta">2020 – 2024 · GPA 8.2</div>
+      </div>
+      <div class="tl-item">
+        <h3>Certification: UI Full Stack Web Development — Naresh i Technologies</h3>
+        <div class="meta">Completed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's build something reliable.</h2>
+    <p>Open to Frontend, React, and Full Stack roles — and teams applying AI tooling to real engineering work.</p>
+    <div class="contact-links">
+      <a href="mailto:shivanireddy1562@gmail.com">shivanireddy1562@gmail.com</a>
+      <a href="tel:+917022613919">+91 7022613919</a>
+      <a href="www.linkedin.com/in/arudappa-gari-shivani-801830250">LinkedIn</a>
+      <a href="https://github.com/ShivaniReddy-tech">GitHub</a>
+    </div>
+    <div class="fine">Kurnool, Andhra Pradesh, India</div>
+  </div>
+</footer>
+
+</body>
+</html>
